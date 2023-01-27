@@ -18,7 +18,7 @@ Com o docker e docker-compose devidamente instalados basta clonar o repositório
 ````
 docker-compose up dafitiapi
 ````
-
+Serão gerados dois containers, contendo backend e banco de dados;
 ## Rotas
 
 | Rota             | Metodo | Descrição                                                                              |
@@ -50,5 +50,18 @@ Rota GET | /api/product/csv
 
 
 ## Testes
+| Nome                       | Descrição                                                      |
+|----------------------------|----------------------------------------------------------------|
+| create_products_csv        | Gera um CSV com produtos e faz requisição para criação em lote |
+| get_products_csv           | Gera CSV para download com todos produtos                      |
+| get_all_products           | CRUD, read all                                                 |
+| get_one_product            | CRUD, read                                                     |
+| update_product             | CRUD, update                                                   |
+| delete_product             | CRUD, delete                                                   |
+| create_and_get_csv_product | Cria um produto e faz o download do CSV passando o parametro   |
+| get_csv_min_price          | Download do csv personalizado com o parametro de min_price     |
+| get_csv_max_price          | Download do csv personalizado com o parametro de max_price     |
+| get_csv_all_params         | Download do csv personalizado com todos os parametros          |
 
-Rodar o tests/test_api.py, se nenhuma exception for levantada os testes rodaram com sucesso.
+Rodar ```python tests/test_api.py``` se nenhuma exception for levantada os testes rodaram com sucesso.
+Os CSVs serão gerados na pasta ```tests``` para conferência.
