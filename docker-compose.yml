@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  dafitiapi:
+    image: hello-world
+    links:
+      - database
+      - dafiti-ws
+
+  database:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: 'dafitiapi'
+      MYSQL_USER: 'dafitiapi'
+      MYSQL_PASSWORD: 'dafitiapi'
+      MYSQL_ROOT_PASSWORD: 'dafitiapi'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    networks:
+      - ws-network
+  dafiti-ws:
+    build:
+      context: "../dafiti-api"
+      dockerfile: "Dockerfile"
+    entrypoint: ./sources/entry-point.sh
+    environment:
+      SQLALCHEMY_DATABASE_URI: 'mysql+pymysql://dafitiapi:dafitiapi@localhost:3306/dafitiapi'
+    restart: always
+    ports:
+      - '5000:5000'
+    expose:
+      - '5000'
+    networks:
+      - ws-network
+networks:
+  ws-network:
