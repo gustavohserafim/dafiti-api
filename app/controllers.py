@@ -1,7 +1,8 @@
 import pandas as pd
+import os
 from app import db
 from app.models import Product
-from flask import jsonify
+from flask import jsonify, send_file
 
 
 class ProductController:
@@ -14,6 +15,33 @@ class ProductController:
         df = pd.read_csv(csv)
         df.to_sql('product', db.engine, 'dafitiapi', if_exists='append', index=False)
         return jsonify({'status': 'ok'}), 200
+
+    @staticmethod
+    def get_to_csv(params):
+        name = params.get('name')
+        min_price = params.get('min_price')
+        max_price = params.get('max_price')
+        filter_list = []
+
+        if name:
+            filter_list.append(Product.name.startswith(name))
+
+        if min_price:
+            filter_list.append(Product.price >= min_price)
+
+        if max_price:
+            filter_list.append(Product.price <= max_price)
+
+        produtos = Product.query.filter(*filter_list).all()
+        df = pd.DataFrame(produtos)
+
+        try:
+            os.remove('../produtos.csv')
+        except FileNotFoundError:
+            pass
+
+        df.to_csv('produtos.csv', index=False)
+        return send_file('../produtos.csv', mimetype='text/csv', download_name='produtos.csv')
 
     @staticmethod
     def create(product):
