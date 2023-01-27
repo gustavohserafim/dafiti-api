@@ -26,7 +26,7 @@ services:
       dockerfile: "Dockerfile"
     entrypoint: ./sources/entry-point.sh
     environment:
-      SQLALCHEMY_DATABASE_URI: 'mysql+pymysql://dafitiapi:dafitiapi@localhost:3306/dafitiapi'
+      SQLALCHEMY_DATABASE_URI: 'mysql+pymysql://dafitiapi:dafitiapi@database/dafitiapi'
     restart: always
     ports:
       - '5000:5000'
@@ -34,5 +34,7 @@ services:
       - '5000'
     networks:
       - ws-network
+    depends_on:
+      - database
 networks:
   ws-network:
