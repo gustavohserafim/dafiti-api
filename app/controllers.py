@@ -74,7 +74,7 @@ class ProductController:
     def delete(self):
         product = Product.query.get(self.product_id)
         if product:
-            product.delete()
+            db.session.delete(product)
             db.session.commit()
             return jsonify({'status': 'ok'}), 200
         return jsonify({'status': 'not found'}), 404
