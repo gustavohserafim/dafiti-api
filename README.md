@@ -35,12 +35,11 @@ docker-compose up dafitiapi
 
 Rota GET | /api/product/csv
 
-| Parametro   | Tipo   | Descrição                                                   |                                                                
-|-------------|--------|-------------------------------------------------------------|
-| name        | string | Retorna produtos apenas com os termos passados no nome      |
-| description | string | Retorna produtos apenas com os termos passados na descrição |
-| min_price   | int    | Retorna produtos com preço acima do valor passado           |
-| max_price   | int    | Retorna produtos com preço abaixo do valor passado          |
+| Parametro   | Tipo   | Descrição                                                      |                                                                
+|-------------|--------|----------------------------------------------------------------|
+| name        | string | Retorna produtos apenas com o nome começando com termo passado |
+| min_price   | int    | Retorna produtos com preço acima do valor passado              |
+| max_price   | int    | Retorna produtos com preço abaixo do valor passado             |
 
 ## Respostas
 
