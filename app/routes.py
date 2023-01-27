@@ -3,10 +3,12 @@ from app.controllers import ProductController
 from flask import request
 
 
-@app.route('/api/product/csv', methods=['POST'])
+@app.route('/api/product/csv', methods=['GET', 'POST'])
 def product_csv():
-    return ProductController.create_from_csv(request.files['file'])
-
+    if request.method == 'POST':
+        return ProductController.create_from_csv(request.files['file'])
+    elif request.method == 'GET':
+        return ProductController.get_to_csv(request.args)
 
 @app.route('/api/product', methods=['GET', 'POST'])
 def products():
